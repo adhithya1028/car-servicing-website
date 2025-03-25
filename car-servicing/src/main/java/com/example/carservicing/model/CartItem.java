@@ -1,17 +1,20 @@
 package com.example.carservicing.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
+@Table(name = "cart_item")
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String price;
+    private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "appointment_id")
+    private Appointment appointment;
 
     // Getters and Setters
     public Long getId() {
@@ -30,11 +33,19 @@ public class CartItem {
         this.name = name;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 }
